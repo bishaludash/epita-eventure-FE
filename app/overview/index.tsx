@@ -1,3 +1,5 @@
+import Card from "@/components/Card";
+
 export const metadata = {
   title: "Eventure",
   description: "Lorem ipsum dolor sit amet.",
@@ -5,15 +7,19 @@ export const metadata = {
 
 const Overview = () => {
   return (
-    <section>
-      <div className=" mx-[10%] flex ">
-        <div className="flex-1">Eventure</div>
+    <section className="my-20">
+      <h1 className=" text-4xl my-5 font-bold capitalize">
+        Trending Events in Paris
+      </h1>
 
-        <ul className="flex flex-row gap-20">
-          <li>Events</li>
-          <li>Tasks</li>
-          <li>Profile</li>
-        </ul>
+      <div className="grid grid-cols-4 gap-10">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
     </section>
   );

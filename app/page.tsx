@@ -8,7 +8,7 @@ export const metadata = {
 
 const page = () => {
   return (
-    <div>
+    <div className=" mx-[10%] ">
       <Overview />
     </div>
   );
