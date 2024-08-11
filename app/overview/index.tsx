@@ -7,7 +7,7 @@ export const metadata = {
 
 const Overview = () => {
   return (
-    <section className="my-20">
+    <section>
       <h1 className=" text-4xl my-5 font-bold capitalize">
         Trending Events in Paris
       </h1>

@@ -1,13 +1,13 @@
 const Card = () => {
   return (
-    <div className="card bg-base-100 w-full shadow-xl border border-gray-700 ">
+    <div className="card bg-base-100 w-full shadow-md border border-gray-700 hover:cursor-pointer hover:shadow-gray-400 transition delay-75">
       <figure>
         <img
           src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
           alt="Shoes"
         />
       </figure>
-      <div className="card-body">
+      <div className="card-body p-4">
         <h2 className="card-title">
           Shoes!
           <div className="badge badge-secondary">NEW</div>
