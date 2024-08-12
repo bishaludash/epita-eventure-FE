@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Select from "../UI/Select";
 import TextArea from "../UI/TextArea";
+import Button from "../UI/Button";
 
 export type TEvent = {
   eventName: string;
@@ -16,7 +17,7 @@ export type TEvent = {
 
 const CreateEvent = () => {
   const pathname = usePathname();
-  console.log(pathname);
+  const [setshowToast, setSetshowToast] = useState(false);
   const [eventData, setEventData] = useState<TEvent>({
     eventName: "",
     eventDate: null,
@@ -60,6 +61,14 @@ const CreateEvent = () => {
       />
 
       <TextArea />
+
+      <Button />
+
+      <div className="toast toast-top toast-center">
+        <div className="alert alert-success">
+          <span>Event created successfully.</span>
+        </div>
+      </div>
     </div>
   );
 };
