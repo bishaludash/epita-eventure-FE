@@ -9,13 +9,6 @@ const Login = () => {
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        {/* <Image
-          className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          width={500}
-          height={500}
-          alt="Picture of the author"
-        /> */}
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
           Sign in to your account
         </h2>
