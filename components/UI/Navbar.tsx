@@ -2,9 +2,12 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import useLocalStorageUser from "@/utils/useLocalStorageUser";
 
 const Navbar = () => {
+  const [user, setUser] = useLocalStorageUser();
   const pathname = usePathname();
+  console.log(user);
 
   const isPageActive = (page: string): boolean => {
     if (pathname.includes(page)) {
@@ -59,14 +62,27 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li>
-          <Link
-            className=" py-2 cursor-pointer rounded-md px-4 border-b-4 border-transparent text-gray-50 bg-opacity-50 bg-[#13171b] hover:bg-opacity-100 transition delay-75"
-            href="/login"
-          >
-            Login
-          </Link>
-        </li>
+        {!user && (
+          <li>
+            <Link
+              className=" py-2 cursor-pointer rounded-md px-4 border-b-4 border-transparent text-gray-50 bg-opacity-50 bg-[#13171b] hover:bg-opacity-100 transition delay-75"
+              href="/api/auth/login"
+            >
+              Login
+            </Link>
+          </li>
+        )}
+
+        {user && (
+          <li>
+            <Link
+              className=" py-2 cursor-pointer rounded-md px-4 border-b-4 border-transparent text-gray-50 bg-opacity-50 bg-[#13171b] hover:bg-opacity-100 transition delay-75"
+              href="/api/auth/logout"
+            >
+              Logout
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

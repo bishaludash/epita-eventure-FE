@@ -1,5 +1,5 @@
-import Button from "@/components/UI/SubmitButton";
 import Overview from "./overview";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 export const metadata = {
   title: "Eventure",
@@ -8,9 +8,11 @@ export const metadata = {
 
 const page = () => {
   return (
-    <div>
-      <Overview />
-    </div>
+    <UserProvider>
+      <div>
+        <Overview />
+      </div>
+    </UserProvider>
   );
 };
 
