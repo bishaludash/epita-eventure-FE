@@ -1,3 +1,4 @@
+import { TUser } from "@/types/EventType";
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface IProps {
@@ -5,7 +6,7 @@ interface IProps {
   value: string;
   name: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-  optionData: [];
+  optionData: any;
   disabled?: boolean;
 }
 const Select: React.FC<IProps> = ({
@@ -22,20 +23,23 @@ const Select: React.FC<IProps> = ({
         <span className="label-text text-white">{label}</span>
       </div>
       <select
-        className="select select-bordered w-full text-white"
+        className="select select-bordered w-full text-white disabled:text-white capitalize"
         disabled={disabled}
         name={name}
         onChange={(e) => onChange(e)}
       >
-        <option disabled value={value} className="text-white">
-          {label}
+        <option value="" className="text-white capitalize">
+          Select Option
         </option>
-        <option value="Han Solo" className="text-white">
-          Han Solo
-        </option>
-        <option value="Greedo" className="text-white">
-          Greedo
-        </option>
+        {optionData.map((item: TUser, key: number) => (
+          <option
+            key={key}
+            value={item.nickname}
+            className="text-white capitalize"
+          >
+            {item.nickname}
+          </option>
+        ))}
       </select>
     </div>
   );

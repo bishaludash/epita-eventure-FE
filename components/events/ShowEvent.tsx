@@ -7,11 +7,12 @@ import { getEventsById } from "@/api/api";
 import Loading from "../UI/Loading";
 import Select from "../UI/Select";
 import { defaultEventData, TEvent } from "@/types/EventType";
+import moment from "moment";
 
 const ShowEvent = () => {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [Event, setEvent] = useState<TEvent>(defaultEventData);
+  const [eventData, setEventData] = useState<TEvent>(defaultEventData);
 
   const event_id = searchParams.get("event_id");
   useEffect(() => {
@@ -22,7 +23,8 @@ const ShowEvent = () => {
 
   const getEventdata = async (id: string) => {
     const data = await getEventsById(id);
-    setEvent(data);
+    console.log(data);
+    setEventData(data);
     setIsLoading(false);
   };
 
@@ -40,45 +42,53 @@ const ShowEvent = () => {
         <TextInput
           label={"Event Name"}
           name="eventName"
-          value={Event.eventName}
-          onChange={() => console.log("ici")}
+          value={eventData.eventName}
           disabled={true}
+          onChange={() => console.log("ici")}
         />
         <input
           type="date"
           name="eventDate"
-          value={Event?.eventDate}
+          className="input input-bordered  gap-2 w-full text-white disabled:text-white"
+          value={moment(eventData.eventDate).format("YYYY-MM-DD")}
           onChange={() => console.log("ici")}
-          className="input input-bordered text-white gap-2 w-full"
           disabled={true}
         />
 
         <TextInput
           label={"Event Location"}
           name="location"
-          value={Event.location}
+          value={eventData.location}
           onChange={() => console.log("ici")}
           disabled={true}
         />
 
-        <Select
+        <TextInput
           label={"Manager"}
-          name="eventName"
-          value={Event.eventName}
-          optionData={[]}
+          name="manager"
+          value={eventData.manager}
           onChange={() => console.log("ici")}
           disabled={true}
         />
 
-        <TextArea />
+        <TextArea
+          name="description"
+          label="Description"
+          value={eventData.description}
+          onChange={() => console.log("ici")}
+          disabled={true}
+        />
       </div>
       <div>
         <figure>
           <img src={`https://picsum.photos/id/1/400/200`} alt="Shoes" />
         </figure>
+        <button className="btn btn-primary text-sm w-full mt-4">
+          Book Event
+        </button>
       </div>
 
-      <Toast />
+      {/* <Toast /> */}
     </div>
   );
 };

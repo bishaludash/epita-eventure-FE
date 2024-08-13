@@ -7,7 +7,13 @@ interface IProps {
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   disabled?: boolean;
 }
-const TextArea: React.FC<IProps> = ({ label, name, value, onChange }) => {
+const TextArea: React.FC<IProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  disabled,
+}) => {
   return (
     <label className="form-control">
       <div className="label">
@@ -15,10 +21,11 @@ const TextArea: React.FC<IProps> = ({ label, name, value, onChange }) => {
       </div>
       <textarea
         name={name}
-        className="textarea textarea-bordered h-24 text-white"
+        className="textarea textarea-bordered h-24 text-white disabled:text-white"
         placeholder="Details"
         value={value}
         onChange={(e) => onChange(e)}
+        disabled={disabled}
       ></textarea>
     </label>
   );

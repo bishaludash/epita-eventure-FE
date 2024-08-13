@@ -7,7 +7,6 @@ import useLocalStorageUser from "@/utils/useLocalStorageUser";
 const Navbar = () => {
   const [user, setUser] = useLocalStorageUser();
   const pathname = usePathname();
-  console.log(user);
 
   const isPageActive = (page: string): boolean => {
     if (pathname.includes(page)) {

@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Card from "../UI/Card";
-import axios from "axios";
 import Loading from "../UI/Loading";
 import { TEvent, TEvents } from "@/types/EventType";
 import { getAllEvents } from "@/api/api";
 
-const ListEvent = () => {
+const ManageEvent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState<TEvents>([]);
   const router = useRouter();
@@ -54,4 +53,4 @@ const ListEvent = () => {
   );
 };
 
-export default ListEvent;
+export default ManageEvent;

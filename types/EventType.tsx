@@ -1,7 +1,7 @@
 export type TEvent = {
   id?: string | undefined;
   eventName: string;
-  eventDate: string | undefined;
+  eventDate: string | undefined | any;
   location: string;
   description: string;
   manager: string;
@@ -18,3 +18,16 @@ export const defaultEventData = {
   description: "",
   manager: "",
 };
+
+export type TUser = {
+  nickname: string;
+  name: string;
+  picture: string;
+  updated_at: string;
+  email: string;
+  email_verified: boolean;
+  sub: string;
+  sid: string;
+};
+
+export type TUsers = TUser[] | undefined;

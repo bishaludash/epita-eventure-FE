@@ -9,6 +9,12 @@ interface IProps {
 }
 
 const Card: React.FC<IProps> = ({ id, label, itemDate, details, location }) => {
+  const formatDate = (date: string | undefined) => {
+    if (date) {
+      return new Date(date).toLocaleDateString();
+    }
+    return "";
+  };
   return (
     <div className="card bg-base-100 w-full shadow-md border border-gray-700 hover:cursor-pointer hover:shadow-gray-400 transition delay-75">
       <figure>
@@ -19,8 +25,15 @@ const Card: React.FC<IProps> = ({ id, label, itemDate, details, location }) => {
           {label}
           <div className="badge badge-secondary">NEW</div>
         </h2>
-        <p>{details}</p>
-        <div className="card-actions justify-end">
+        <div className="w-[100%] h-12 overflow-hidden text-ellipsis">
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti
+            aut vitae, non nemo ut libero neque fuga? Quis, deleniti quidem!
+            {details}
+          </p>
+        </div>
+        <div className="flex flex-row justify-between">
+          <div className="flex">{formatDate(itemDate)}</div>
           <div className="badge badge-outline">{location}</div>
         </div>
       </div>

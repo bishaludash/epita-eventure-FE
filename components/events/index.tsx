@@ -6,6 +6,7 @@ import CreateEvent from "@/components/events/CreateEvent";
 import ListEvent from "@/components/events/ListEvent";
 import ShowEvent from "@/components/events/ShowEvent";
 import EditEvent from "@/components/events/EditEvent";
+import ManageEvent from "./ManageEvent";
 
 export default function Events() {
   const searchParams = useSearchParams();
@@ -61,7 +62,7 @@ export default function Events() {
           {edit_event_id !== "" && edit_event_id !== null ? (
             <EditEvent />
           ) : (
-            "Events Responsible"
+            <ManageEvent />
           )}
         </div>
       </div>

@@ -7,12 +7,12 @@ import Select from "../UI/Select";
 import TextArea from "../UI/TextArea";
 import Button from "../UI/SubmitButton";
 import Toast from "../UI/Toast";
-import { defaultEventData, TEvent } from "@/types/EventType";
-import { createEvent } from "@/api/api";
+import { defaultEventData, TEvent, TUser, TUsers } from "@/types/EventType";
+import { createEvent, getAllUsers } from "@/api/api";
 
 const CreateEvent = () => {
-  const pathname = usePathname();
   const [setshowToast, setSetshowToast] = useState<Boolean>(false);
+  const [users, setUsers] = useState<TUsers>([]);
   const [toast, setToast] = useState({ message: "", color: "" });
   const [eventData, setEventData] = useState<TEvent>(defaultEventData);
 
@@ -27,11 +27,19 @@ const CreateEvent = () => {
   };
 
   useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       setSetshowToast(false);
     }, 5000);
   }, [setshowToast]);
 
+  const fetchUsers = async () => {
+    const userData = await getAllUsers();
+    setUsers(userData);
+  };
   const handleSubmit = async () => {
     // validate
     if (
@@ -66,6 +74,7 @@ const CreateEvent = () => {
       <input
         type="date"
         name="eventDate"
+        value={eventData.eventDate}
         className="input input-bordered  gap-2 w-full text-white"
         onChange={handleChange}
       />
@@ -81,7 +90,7 @@ const CreateEvent = () => {
         label={"Manager"}
         name="manager"
         value={eventData.manager}
-        optionData={[]}
+        optionData={users}
         onChange={handleChange}
       />
 
