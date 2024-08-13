@@ -1,4 +1,4 @@
-import Button from "@/components/UI/Button";
+import Button from "@/components/UI/SubmitButton";
 import Overview from "./overview";
 
 export const metadata = {

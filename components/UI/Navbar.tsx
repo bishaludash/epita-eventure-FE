@@ -5,7 +5,6 @@ import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   const isPageActive = (page: string): boolean => {
     if (pathname.includes(page)) {

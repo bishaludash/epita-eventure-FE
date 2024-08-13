@@ -1,14 +1,24 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
-const TextArea = () => {
+interface IProps {
+  label: string;
+  value: string;
+  name: string;
+  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  disabled?: boolean;
+}
+const TextArea: React.FC<IProps> = ({ label, name, value, onChange }) => {
   return (
     <label className="form-control">
       <div className="label">
-        <span className="label-text">Description</span>
+        <span className="label-text text-white">{label}</span>
       </div>
       <textarea
-        className="textarea textarea-bordered h-24"
-        placeholder="Bio"
+        name={name}
+        className="textarea textarea-bordered h-24 text-white"
+        placeholder="Details"
+        value={value}
+        onChange={(e) => onChange(e)}
       ></textarea>
     </label>
   );

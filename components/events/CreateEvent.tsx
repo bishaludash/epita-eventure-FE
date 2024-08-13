@@ -1,34 +1,58 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import TextInput from "@/components/UI/TextInput";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
 import Select from "../UI/Select";
 import TextArea from "../UI/TextArea";
-import Button from "../UI/Button";
-
-export type TEvent = {
-  eventName: string;
-  eventDate: Date | null;
-  location: string;
-  description: string;
-  manager: string;
-};
+import Button from "../UI/SubmitButton";
+import Toast from "../UI/Toast";
+import { defaultEventData, TEvent } from "@/types/EventType";
+import { createEvent } from "@/api/api";
 
 const CreateEvent = () => {
   const pathname = usePathname();
-  const [setshowToast, setSetshowToast] = useState(false);
-  const [eventData, setEventData] = useState<TEvent>({
-    eventName: "",
-    eventDate: null,
-    location: "",
-    description: "",
-    manager: "",
-  });
+  const [setshowToast, setSetshowToast] = useState<Boolean>(false);
+  const [toast, setToast] = useState({ message: "", color: "" });
+  const [eventData, setEventData] = useState<TEvent>(defaultEventData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const name = e.target["name"];
     setEventData({ ...eventData, [name]: e.target.value });
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSetshowToast(false);
+    }, 5000);
+  }, [setshowToast]);
+
+  const handleSubmit = async () => {
+    // validate
+    if (
+      eventData.eventName === "" ||
+      eventData.eventDate === "" ||
+      eventData.location === ""
+    ) {
+      setToast({ message: "Form field cannot be empty", color: "alert-error" });
+      setSetshowToast(true);
+      return false;
+    } else {
+      if (eventData?.eventDate) {
+        eventData.eventDate = new Date(eventData?.eventDate)?.toISOString();
+      }
+      await createEvent(eventData);
+
+      // empty the form field
+      setEventData(defaultEventData);
+      setToast({ message: "Event created successfully", color: "" });
+      setSetshowToast(true);
+    }
   };
 
   return (
@@ -42,7 +66,8 @@ const CreateEvent = () => {
       <input
         type="date"
         name="eventDate"
-        className="input input-bordered  gap-2 w-full"
+        className="input input-bordered  gap-2 w-full text-white"
+        onChange={handleChange}
       />
 
       <TextInput
@@ -53,22 +78,23 @@ const CreateEvent = () => {
       />
 
       <Select
-        label={"Select Event Responsible"}
-        name="eventName"
-        value={eventData.eventName}
+        label={"Manager"}
+        name="manager"
+        value={eventData.manager}
         optionData={[]}
         onChange={handleChange}
       />
 
-      <TextArea />
+      <TextArea
+        name="description"
+        label="Description"
+        value={eventData.description}
+        onChange={handleChange}
+      />
 
-      <Button />
+      <Button onSubmit={handleSubmit} />
 
-      <div className="toast toast-top toast-center">
-        <div className="alert alert-success">
-          <span>Event created successfully.</span>
-        </div>
-      </div>
+      {setshowToast && <Toast message={toast.message} color={toast.color} />}
     </div>
   );
 };
