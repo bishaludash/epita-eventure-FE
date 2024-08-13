@@ -5,6 +5,7 @@ const apiURL = process.env.NEXT_PUBLIC_API_URL
   ? process.env.NEXT_PUBLIC_API_URL
   : "http://localhost:8080";
 
+const portalURL = "http://localhost:3000";
 export const getAllEvents = async () => {
   try {
     const res = await axios.get(apiURL + "/events");
@@ -103,6 +104,19 @@ export const getAllUsers = () => {
     ];
 
     return users;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const res = await axios.get(portalURL + "/api/auth/me");
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
   } catch (error) {
     console.error(error);
   }

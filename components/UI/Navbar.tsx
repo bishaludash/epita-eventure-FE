@@ -29,37 +29,45 @@ const Navbar = () => {
       </div>
 
       <ul className="flex flex-row gap-20">
-        <li>
-          <Link
-            className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
-              isPageActive("events") ? "border-primary" : "border-transparent"
-            }`}
-            href="/events"
-          >
-            Events
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
-              isPageActive("tasks") ? "border-primary" : "border-transparent"
-            }`}
-            href="/tasks"
-          >
-            Tasks
-          </Link>
-        </li>
+        {user && (
+          <li>
+            <Link
+              className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
+                isPageActive("events") ? "border-primary" : "border-transparent"
+              }`}
+              href="/events"
+            >
+              Events
+            </Link>
+          </li>
+        )}
+        {user && (
+          <li>
+            <Link
+              className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
+                isPageActive("tasks") ? "border-primary" : "border-transparent"
+              }`}
+              href="/tasks"
+            >
+              Tasks
+            </Link>
+          </li>
+        )}
 
-        <li>
-          <Link
-            className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
-              isPageActive("profile") ? "border-primary" : "border-transparent"
-            }`}
-            href="/profile"
-          >
-            Profile
-          </Link>
-        </li>
+        {user && (
+          <li>
+            <Link
+              className={` py-2 cursor-pointer border-b-4  hover:border-primary transition ${
+                isPageActive("profile")
+                  ? "border-primary"
+                  : "border-transparent"
+              }`}
+              href="/profile"
+            >
+              Profile
+            </Link>
+          </li>
+        )}
 
         {!user && (
           <li>

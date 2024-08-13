@@ -6,8 +6,10 @@ import Card from "../UI/Card";
 import Loading from "../UI/Loading";
 import { TEvent, TEvents } from "@/types/EventType";
 import { getAllEvents } from "@/api/api";
+import useLocalStorageUser from "@/utils/useLocalStorageUser";
 
 const ManageEvent = () => {
+  const [user, setUser] = useLocalStorageUser();
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState<TEvents>([]);
   const router = useRouter();
@@ -17,14 +19,15 @@ const ManageEvent = () => {
   }, []);
 
   const getEvents = async () => {
-    const data = await getAllEvents();
+    let data: TEvents = await getAllEvents();
+    data = data.filter((item) => item.manager === user.nickname);
 
     setEvents(data);
     setIsLoading(false);
   };
 
   const onClickEvent = (eventId: string | undefined) => {
-    const routeURL = "events?event_id=" + eventId;
+    const routeURL = "events?edit_event_id=" + eventId;
     router.push(routeURL);
   };
 
