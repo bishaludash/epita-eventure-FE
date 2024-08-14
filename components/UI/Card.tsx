@@ -26,11 +26,7 @@ const Card: React.FC<IProps> = ({ id, label, itemDate, details, location }) => {
           <div className="badge badge-secondary">NEW</div>
         </h2>
         <div className="w-[100%] h-12 overflow-hidden text-ellipsis">
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti
-            aut vitae, non nemo ut libero neque fuga? Quis, deleniti quidem!
-            {details}
-          </p>
+          <p>{details}</p>
         </div>
         <div className="flex flex-row justify-between">
           <div className="flex">{formatDate(itemDate)}</div>

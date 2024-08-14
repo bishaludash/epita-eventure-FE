@@ -17,8 +17,6 @@ const Select: React.FC<IProps> = ({
   optionData,
   disabled,
 }) => {
-  console.log(optionData);
-  console.log(optionData);
   return (
     <div>
       <div className="label">
@@ -34,9 +32,13 @@ const Select: React.FC<IProps> = ({
         <option value="" className="text-white capitalize">
           Select Option
         </option>
-        {optionData.map((item: TUser, key: number) => (
-          <option key={key} value={item.sub} className="text-white capitalize">
-            {item.nickname}
+        {optionData.map((item: any, key: number) => (
+          <option
+            key={key}
+            value={item?.sub ? item.sub : item.id}
+            className="text-white capitalize"
+          >
+            {item.nickname ? item.nickname : item?.eventName}
           </option>
         ))}
       </select>

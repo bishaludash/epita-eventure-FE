@@ -4,15 +4,18 @@ import useLocalStorageUser from "@/utils/useLocalStorageUser";
 import { useSearchParams } from "next/navigation";
 import TextInput from "../UI/TextInput";
 import Toast from "../UI/Toast";
-import { getAllUsers, getEventsById } from "@/api/api";
+import { getAllUsers, getEventsById, participateEvent } from "@/api/api";
 import Loading from "../UI/Loading";
 import { defaultEventData, TEvent, TUsers } from "@/types/EventType";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import { TParticipateEvent } from "@/types/ParticipateEventType";
 
 const ShowEvent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [toast, setToast] = useState({ message: "", color: "" });
+  const [setshowToast, setSetshowToast] = useState<Boolean>(false);
   const [user, setUser] = useLocalStorageUser();
   const [isLoading, setIsLoading] = useState(true);
   const [eventData, setEventData] = useState<TEvent>(defaultEventData);
@@ -27,22 +30,36 @@ const ShowEvent = () => {
     }
   }, [event_id]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setSetshowToast(false);
+    }, 5000);
+  }, [setshowToast]);
+
   const getEventdata = async (id: string) => {
     const data = await getEventsById(id);
     setEventData(data);
     setIsLoading(false);
   };
 
-  const handleBookEvent = () => {
+  const handleBookEvent = async () => {
     if (!user) {
       console.log("redirect to login page");
       router.push("/api/auth/login");
       return true;
     }
-    // TO DO register participant
-    console.log(user);
-    console.log(eventData);
-    console.log("book the event");
+
+    // Book participant
+    const participateData: TParticipateEvent = {
+      eventId: eventData?.id,
+      eventName: eventData.eventName,
+      userId: user.sub,
+      userName: user.nickname,
+      status: "active",
+    };
+    await participateEvent(participateData);
+    setToast({ message: "Event Booked", color: "alert-success" });
+    setSetshowToast(true);
   };
 
   const getManager = () => {
@@ -113,7 +130,7 @@ const ShowEvent = () => {
         </button>
       </div>
 
-      {/* <Toast /> */}
+      {setshowToast && <Toast message={toast.message} color={toast.color} />}
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { TEvent, TUsers } from "@/types/EventType";
+import { TParticipateEvent } from "@/types/ParticipateEventType";
+import { TTask } from "@/types/TaskType";
 import axios from "axios";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL
@@ -79,6 +81,34 @@ export const deleteEvent = async (data: TEvent) => {
   }
 };
 
+export const getAllTasks = async () => {
+  try {
+    const res = await axios.get(apiURL + "/tasks");
+
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createTask = async (data: TTask) => {
+  try {
+    const res = await axios.post(apiURL + "/tasks", data);
+
+    if (res.status === 201) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getAllUsers = () => {
   try {
     const users = [
@@ -126,6 +156,45 @@ export const getAllUsers = () => {
 export const getUser = async () => {
   try {
     const res = await axios.get(portalURL + "/api/auth/me");
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getParticipations = async () => {
+  try {
+    const res = await axios.get(apiURL + "/participants");
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const participateEvent = async (data: TParticipateEvent) => {
+  try {
+    const res = await axios.post(apiURL + "/participants", data);
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateParticipation = async (data: TParticipateEvent) => {
+  try {
+    const res = await axios.put(apiURL + "/participants", data);
     if (res.status === 200) {
       return res.data;
     } else {
