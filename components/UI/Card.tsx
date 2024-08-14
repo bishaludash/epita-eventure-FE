@@ -34,7 +34,9 @@ const Card: React.FC<IProps> = ({ id, label, itemDate, details, location }) => {
         </div>
         <div className="flex flex-row justify-between">
           <div className="flex">{formatDate(itemDate)}</div>
-          <div className="badge badge-outline">{location}</div>
+          <div className="ml-2 badge badge-outline overflow-hidden text-nowrap">
+            {location}
+          </div>
         </div>
       </div>
     </div>

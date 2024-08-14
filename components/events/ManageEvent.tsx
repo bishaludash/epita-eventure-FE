@@ -20,7 +20,7 @@ const ManageEvent = () => {
 
   const getEvents = async () => {
     let data: TEvents = await getAllEvents();
-    data = data.filter((item) => item.manager === user.nickname);
+    data = data.filter((item) => item.manager === user.sub);
 
     setEvents(data);
     setIsLoading(false);
@@ -40,18 +40,21 @@ const ManageEvent = () => {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-10">
-      {events?.map((item: TEvent, key) => (
-        <div key={item.id} onClick={() => onClickEvent(item?.id)}>
-          <Card
-            id={key + 50}
-            label={item.eventName}
-            itemDate={item?.eventDate}
-            details={item.description}
-            location={item.location}
-          />
-        </div>
-      ))}
+    <div>
+      <h2 className="font-bold mb-2">Created Events</h2>
+      <div className="grid grid-cols-4 gap-10">
+        {events?.map((item: TEvent, key) => (
+          <div key={item.id} onClick={() => onClickEvent(item?.id)}>
+            <Card
+              id={key + 50}
+              label={item.eventName}
+              itemDate={item?.eventDate}
+              details={item.description}
+              location={item.location}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
