@@ -8,11 +8,12 @@ import React, {
 interface IProps {
   onSubmit: () => void;
   text?: string;
+  btnStyle?: string;
 }
 
-const SubmitButton: React.FC<IProps> = ({ onSubmit, text }) => {
+const SubmitButton: React.FC<IProps> = ({ onSubmit, text, btnStyle }) => {
   return (
-    <div className=" btn my-4" onClick={onSubmit}>
+    <div className={`btn my-4 ${btnStyle ? btnStyle : ""}`} onClick={onSubmit}>
       {text ? text : "Submit"}
     </div>
   );

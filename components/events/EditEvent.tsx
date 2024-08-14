@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import TextInput from "@/components/UI/TextInput";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Select from "../UI/Select";
 import TextArea from "../UI/TextArea";
 import Button from "../UI/SubmitButton";
 import Toast from "../UI/Toast";
 import { defaultEventData, TEvent, TUser, TUsers } from "@/types/EventType";
-import { getAllUsers, getEventsById, updateEvent } from "@/api/api";
+import {
+  deleteEvent,
+  getAllUsers,
+  getEventsById,
+  updateEvent,
+} from "@/api/api";
 import moment from "moment";
 import { getRandomInt } from "@/utils/utils";
 
 const EditEvent = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [setshowToast, setSetshowToast] = useState<Boolean>(false);
   const [users, setUsers] = useState<TUsers>([]);
   const [toast, setToast] = useState({ message: "", color: "" });
@@ -22,6 +28,7 @@ const EditEvent = () => {
   const [userList, setUserList] = useState<TUsers>([]);
 
   const event_id = searchParams.get("edit_event_id");
+  const randomNumb = useMemo(() => getRandomInt(50), []);
 
   useEffect(() => {
     if (event_id) {
@@ -82,6 +89,11 @@ const EditEvent = () => {
     }
   };
 
+  const handleDelete = async () => {
+    await deleteEvent(eventData);
+    router.push("/events");
+  };
+
   console.log(eventData);
   return (
     <div className="my-4 flex  flex-row gap-10">
@@ -123,6 +135,11 @@ const EditEvent = () => {
         />
 
         <Button text="Update" onSubmit={handleSubmit} />
+        <Button
+          text="Delete"
+          btnStyle="btn-error ml-4"
+          onSubmit={handleDelete}
+        />
 
         {setshowToast && <Toast message={toast.message} color={toast.color} />}
       </div>
@@ -130,7 +147,7 @@ const EditEvent = () => {
       <div>
         <figure>
           <img
-            src={`https://picsum.photos/id/${getRandomInt(50)}/400/200`}
+            src={`https://picsum.photos/id/${randomNumb}/400/200`}
             alt="Shoes"
           />
         </figure>

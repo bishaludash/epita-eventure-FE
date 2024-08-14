@@ -11,9 +11,9 @@ export const getAllEvents = async () => {
     const res = await axios.get(apiURL + "/events");
 
     if (res.status === 200) {
-      // sort by date desc
+      // sort by date asc
       const data = res.data.sort((a: TEvent, b: TEvent) => {
-        return (new Date(b.eventDate) as any) - (new Date(a.eventDate) as any);
+        return (new Date(a.eventDate) as any) - (new Date(b.eventDate) as any);
       });
       return res.data;
     } else {
@@ -54,6 +54,20 @@ export const createEvent = async (data: TEvent) => {
 export const updateEvent = async (data: TEvent) => {
   try {
     const res = await axios.put(apiURL + "/events", data);
+
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return "No Data";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteEvent = async (data: TEvent) => {
+  try {
+    const res = await axios.delete(apiURL + "/events/" + data.id);
 
     if (res.status === 200) {
       return res.data;
